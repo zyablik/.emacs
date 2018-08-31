@@ -52,7 +52,8 @@
 (add-hook 'text-mode-hook
     (lambda()
         (all-modes-hook)
-        (hl-line-mode)))
+ ))
+
 
 ;----------------------------------don't bother me ---------------------------------
 
@@ -123,25 +124,11 @@
 (setq show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
-(defun toggle-highlight-at-point()
-    (interactive)
-    (let*(
-;              (word-at-point (thing-at-point 'word 'no-propertie))
-;              (hi-lockified-word-at-point (concat "\\_<" word-at-point "\\_>"))
-          (hi-lockified-word-at-point (find-tag-default-as-symbol-regexp))
-          (hi-lock-flattened-patterns (mapcar 'car hi-lock-interactive-patterns))
-        )
-        (if (member hi-lockified-word-at-point hi-lock-flattened-patterns)
-          (unhighlight-regexp hi-lockified-word-at-point)
-          (highlight-symbol-at-point))
-    )
-)
-
-; do not bother me at start
-(setq hi-lock-file-patterns-policy (lambda (pattern) t))
-
 ; highlight current line number
 (require 'hlinum)
+
+; highlight current line
+(global-hl-line-mode 1)
 
 ; --------------------------------- speedbar ---------------------------------------
 
@@ -279,7 +266,7 @@
 
 (global-set-key (kbd "<f9>") 'toggle-camelcase-underscores)
 
-(global-set-key (kbd "S-<f8>") 'toggle-highlight-at-point)
+(global-set-key (kbd "S-<f8>") 'hl-highlight-thingatpt-local)
 
 (global-set-key (kbd "<f12>") 'sr-speedbar-toggle)
 
