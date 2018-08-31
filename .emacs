@@ -19,6 +19,7 @@
  '(auto-revert-use-notify t)
  '(comment-style (quote extra-line))
  '(custom-enabled-themes (quote (tsdh-light)))
+ '(delete-selection-mode t)
  '(package-selected-packages
    (quote
     (auto-complete bm flx-ido hlinum ibuffer-projectile ido-vertical-mode iedit smex projectile projectile-speedbar sr-speedbar))))
