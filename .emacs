@@ -317,6 +317,8 @@
 ; save session on quit
 (desktop-save-mode t)
 
+(setq mouse-wheel-progressive-speed nil)
+
 ; --------------------------------- indentation ---------------------------------------
 
 ; disable auto indentation
