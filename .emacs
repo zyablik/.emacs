@@ -135,6 +135,7 @@
 
 (setq sr-speedbar-auto-refresh t)
 (setq sr-speedbar-delete-windows t)
+(setq speedbar-show-unknown-files t)
 (setq sr-speedbar-right-side nil)
 
 ; --------------------------------- ido ---------------------------------------
@@ -270,6 +271,12 @@
 (global-set-key (kbd "S-<f8>") 'hl-highlight-thingatpt-local)
 
 (global-set-key (kbd "<f12>") 'sr-speedbar-toggle)
+
+(add-hook 'speedbar-reconfigure-keymaps-hook
+    (lambda ()
+        (define-key speedbar-mode-map [backspace] 'speedbar-up-directory)
+        (define-key speedbar-mode-map [M-up] 'speedbar-restricted-prev)
+        (define-key speedbar-mode-map [M-down] 'speedbar-restricted-next)))
 
 (global-set-key (kbd "C-d") 'duplicate-line)
 
