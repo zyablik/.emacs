@@ -45,6 +45,7 @@
         (all-modes-hook)
         (linum-mode)
         (hlinum-activate)
+        (dtrt-indent-mode 1)
         (setq show-trailing-whitespace t)))
 
 (add-hook 'special-mode-hook 'hl-line-mode)
@@ -313,3 +314,9 @@
 
 ; do not use tabs for indentation
 (setq-default indent-tabs-mode nil)
+
+(clean-aindent-mode t)
+(setq clean-aindent-is-simple-indent t)
+
+(global-set-key (kbd "RET") 'newline-and-indent)
+
