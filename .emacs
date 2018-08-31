@@ -21,8 +21,8 @@
  '(custom-enabled-themes (quote (tsdh-light)))
  '(delete-selection-mode t)
  '(package-selected-packages
-   (quote
-    (auto-complete bm flx-ido hlinum ibuffer-projectile ido-vertical-mode iedit smex projectile projectile-speedbar sr-speedbar))))
+ (quote
+  (back-button multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode ggtags auto-complete bm flx-ido hlinum ibuffer-projectile ido-vertical-mode iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
