@@ -55,6 +55,7 @@
         (all-modes-hook)
  ))
 
+(add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
 ;----------------------------------don't bother me ---------------------------------
 
