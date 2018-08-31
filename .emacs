@@ -30,6 +30,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 97 :width normal :foundry "PfEd" :family "Consolas"))))
+ '(diredp-compressed-file-suffix ((t (:foreground "#7b68ee"))))
+ '(diredp-ignored-file-name ((t (:foreground "#aaaaaa")))))
 
 ; --------------------------------- hooks ---------------------------------------
 
