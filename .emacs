@@ -292,6 +292,7 @@
 (global-set-key (kbd "C-<tab>") 'previous-buffer)
 (global-set-key (kbd "C-S-<iso-lefttab>") 'next-buffer)
 
+(global-set-key (kbd "M-y") 'popup-kill-ring)
 ; --------------------------------- misc ---------------------------------------
 
 (setq linum-format "%d ")
