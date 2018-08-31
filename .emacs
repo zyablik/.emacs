@@ -288,6 +288,11 @@
 (global-set-key (kbd "C-S-<iso-lefttab>") 'next-buffer)
 
 (global-set-key (kbd "M-y") 'popup-kill-ring)
+
+; multiple-cursors
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+
 ; --------------------------------- misc ---------------------------------------
 
 (setq linum-format "%d ")
