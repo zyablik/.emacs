@@ -22,7 +22,7 @@
  '(delete-selection-mode t)
  '(package-selected-packages
  (quote
-  (ivy-hydra counsel multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode ggtags auto-complete bm flx-ido hlinum ibuffer-projectile ido-vertical-mode iedit smex projectile projectile-speedbar sr-speedbar))))
+  (ivy-hydra counsel bury-successful-compilation multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode ggtags auto-complete bm flx-ido hlinum ibuffer-projectile ido-vertical-mode iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -345,6 +345,8 @@
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
               (ggtags-mode 1))))
+
+(bury-successful-compilation 1)
 
 ; --------------------------------- indentation ---------------------------------------
 
