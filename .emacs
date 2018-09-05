@@ -22,7 +22,7 @@
  '(delete-selection-mode t)
  '(package-selected-packages
  (quote
-  (visual-regexp-steroids visual-regexp ivy-hydra counsel bury-successful-compilation multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode auto-complete bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
+  (visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode auto-complete bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -349,6 +349,9 @@
               (ggtags-mode 1))))
 
 (bury-successful-compilation 1)
+
+(fa-config-default)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ; --------------------------------- indentation ---------------------------------------
 
