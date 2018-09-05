@@ -187,7 +187,6 @@
 ;(defun ac-common-setup ()
 ;  (setq ac-sources (append ac-sources '(ac-source-filename))))
 
-
 ; --------------------------------- bookmarks ---------------------------------------
 
 (setq bm-restore-repository-on-load t)
@@ -302,14 +301,27 @@
 
 (global-unset-key (kbd "<insert>"))
 
-(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-s") (lambda() (interactive) (swiper (thing-at-point 'symbol))))
+(global-set-key (kbd "C-S-s") 'swiper-multi)
 (global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-h v") 'counsel-describe-variable)
+(global-set-key (kbd "C-h f") 'counsel-describe-function)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+
+(add-hook 'ivy-mode-hook
+    (lambda ()
+      (define-key ivy-minibuffer-map (kbd "S-<down>") (lambda() (interactive) (ivy-call) (ivy-next-line)))
+      (define-key ivy-minibuffer-map (kbd "S-<up>") (lambda() (interactive) (ivy-call) (ivy-previous-line)))
+      (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done)))
 
 (global-set-key (kbd "M-%") 'vr/query-replace)
 
 ; --------------------------------- ivy ---------------------------------------
 
 (ivy-mode 1)
+
+(setq ivy-height 20)
 
 ; enable fuzzy matching for all except search
 (setq ivy-re-builders-alist
@@ -318,6 +330,7 @@
 
 (setq ivy-wrap t)
 
+(setq ivy-count-format "(%d/%d) ")
 ; --------------------------------- misc ---------------------------------------
 
 (setq linum-format "%d ")
