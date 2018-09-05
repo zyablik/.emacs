@@ -54,6 +54,7 @@
 
 (add-hook 'text-mode-hook
     (lambda()
+        (hl-line-mode)
         (all-modes-hook)
  ))
 
@@ -132,7 +133,7 @@
 (require 'hlinum)
 
 ; highlight current line
-(global-hl-line-mode 1)
+;(global-hl-line-mode 1)
 
 ; --------------------------------- speedbar ---------------------------------------
 
