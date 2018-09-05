@@ -22,7 +22,7 @@
  '(delete-selection-mode t)
  '(package-selected-packages
  (quote
-  (back-button multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode ggtags auto-complete bm flx-ido hlinum ibuffer-projectile ido-vertical-mode iedit smex projectile projectile-speedbar sr-speedbar))))
+  (ivy-hydra counsel multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode ggtags auto-complete bm flx-ido hlinum ibuffer-projectile ido-vertical-mode iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -32,6 +32,8 @@
  '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 97 :width normal :foundry "PfEd" :family "Consolas"))))
  '(diredp-compressed-file-suffix ((t (:foreground "#7b68ee"))))
  '(diredp-ignored-file-name ((t (:foreground "#aaaaaa")))))
+
+; smex for lru in counsel-M-x
 
 ; --------------------------------- hooks ---------------------------------------
 
@@ -134,6 +136,9 @@
 
 ; highlight current line
 ;(global-hl-line-mode 1)
+
+; enable S-<f8>
+(hl-global-highlight-on/off)
 
 ; --------------------------------- speedbar ---------------------------------------
 
@@ -247,10 +252,6 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-x 4 b") 'ibuffer-other-window)
 
-; smex - ido for M-x
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-
 ; switch window on M-arrow
 (windmove-default-keybindings 'meta)
 
@@ -300,6 +301,20 @@
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 (global-unset-key (kbd "<insert>"))
+
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+
+; --------------------------------- ivy ---------------------------------------
+
+(ivy-mode 1)
+
+; enable fuzzy matching for all except search
+(setq ivy-re-builders-alist
+      '((swiper . ivy--regex-plus)
+        (t      . ivy--regex-fuzzy)))
+
+(setq ivy-wrap t)
 
 ; --------------------------------- misc ---------------------------------------
 
