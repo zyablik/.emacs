@@ -298,6 +298,8 @@
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
+(global-unset-key (kbd "<insert>"))
+
 ; --------------------------------- misc ---------------------------------------
 
 (setq linum-format "%d ")
