@@ -495,6 +495,22 @@
 (fa-config-default)
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
+; skip Ibuffer while switching buffers
+(defun my-next-buffer ()
+  (interactive)
+  (next-buffer)
+  (when (string= "*Ibuffer*" (buffer-name))
+      (next-buffer)))
+
+(defun my-previous-buffer ()
+  (interactive)
+  (previous-buffer)
+  (when (string= "*Ibuffer*" (buffer-name))
+      (previous-buffer)))
+
+(global-set-key [remap next-buffer] 'my-next-buffer)
+(global-set-key [remap previous-buffer] 'my-previous-buffer)
+
 ; --------------------------------- indentation ---------------------------------------
 
 ; disable auto indentation
