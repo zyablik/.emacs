@@ -511,6 +511,7 @@
 (global-set-key [remap next-buffer] 'my-next-buffer)
 (global-set-key [remap previous-buffer] 'my-previous-buffer)
 
+(setq enable-local-variables :all)
 ; --------------------------------- indentation ---------------------------------------
 
 ; disable auto indentation
