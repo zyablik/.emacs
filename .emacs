@@ -447,7 +447,17 @@
 
 (setq ivy-count-format "(%d/%d) ")
 
-(setq xref-show-xrefs-function #'ivy-xref-show-xrefs)
+; auto set calling to before ivy-xref-show-xrefs and off after. catch C-g to ensure off
+(defun my-ivy-xref-show-xrefs (XREFS ALIST)
+  (interactive)
+  (let ((inhibit-quit t))
+      (setq-default ivy-calling t)
+      (with-local-quit
+          (ivy-xref-show-xrefs XREFS ALIST))
+      (setq-default ivy-calling nil)
+      (setq quit-flag nil)))
+
+(setq xref-show-xrefs-function #'my-ivy-xref-show-xrefs)
 
 ; --------------------------------- misc ---------------------------------------
 
