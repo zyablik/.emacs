@@ -27,7 +27,7 @@
  '(delete-selection-mode t)
  '(package-selected-packages
  (quote
-  (avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode auto-complete bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
+  (rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode auto-complete bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -66,6 +66,8 @@
  ))
 
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
+
+(add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
 
 ;----------------------------------don't bother me ---------------------------------
 
