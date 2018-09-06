@@ -154,8 +154,8 @@
 (setq ido-everywhere t)
 (setq ido-create-new-buffer 'always)
 
-;(ido-vertical-mode 1)
-;(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+(ido-vertical-mode 1)
+(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
 
 ; better heuristics and highlights for flex matching for ido
 (flx-ido-mode 1)
