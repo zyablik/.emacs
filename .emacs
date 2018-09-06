@@ -17,12 +17,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-revert-use-notify t)
+ '(ccls-sem-function-colors (quote ("#b58000" "#624724" "#bb6800" "#b28f5f" "#a64be7" "#5834ee" "#b48923" "#733400" "#825800" "#a66825")))
+ '(ccls-sem-macro-colors (quote ("#b76400" "#95070d" "#b87242" "#a81e00" "#764215" "#b24a03" "#6b1a01" "#8639ee" "#b24a41" "#9f3d19")))
+ '(ccls-sem-namespace-colors (quote ("#126800" "#289174" "#2e9618" "#06512b" "#43861d" "#114a00" "#139c41" "#4e8739" "#288f59" "#0e6f1a")))
+ '(ccls-sem-parameter-colors (quote ("##126800" "#289174" "#1e8608" "#06512b" "#43861d" "#114a00" "#139c41" "#4e8739" "#288f59" "#0e6f1a")))
+ '(ccls-sem-type-colors (quote ("#b17f93" "#a5038b" "#6b374f" "#b32086" "#701330" "#ad528c" "#ae0834" "#7d0f57" "#ad4a60" "#b0135a")))
  '(comment-style (quote extra-line))
  '(custom-enabled-themes (quote (tsdh-light)))
  '(delete-selection-mode t)
  '(package-selected-packages
  (quote
-  (ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode auto-complete bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
+  (ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode auto-complete bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -87,6 +92,119 @@
 
 ; hide toolbar
 (setq tool-bar-mode nil)
+
+; --------------------------------- ccls ---------------------------------------
+
+(setq ccls-executable "/home/zyablik/ccls/Debug/ccls")
+(setq ccls-extra-args '("-log-file=/home/zyablik/ccls.log" "-v=9"))
+(setq ccls-cache-dir "/home/zyablik/.ccls-cache")
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (lsp-ccls-enable)
+              (ccls-use-default-rainbow-sem-highlight)
+              )))
+
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+(add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
+
+(setq ccls-sem-highlight-method 'font-lock)
+
+; https://github.com/MaskRay/Config/blob/master/home/.config/doom/modules/private/my-cc/autoload.el
+
+(defun ccls/base () (interactive) (lsp-ui-peek-find-custom 'base "$ccls/base"))
+(defun ccls/callers () (interactive) (lsp-ui-peek-find-custom 'callers "$ccls/callers"))
+(defun ccls/vars (kind) (lsp-ui-peek-find-custom 'vars "$ccls/vars" (plist-put (lsp--text-document-position-params) :kind kind)))
+(defun ccls/bases ()
+  (interactive)
+  (lsp-ui-peek-find-custom 'base "$ccls/inheritanceHierarchy"
+                           (append (lsp--text-document-position-params) '(:flat t :level 3))))
+(defun ccls/derived ()
+  (interactive)
+  (lsp-ui-peek-find-custom 'derived "$ccls/inheritanceHierarchy"
+                           (append (lsp--text-document-position-params) '(:flat t :level 3 :derived t))))
+(defun ccls/members ()
+  (interactive)
+  (lsp-ui-peek-find-custom 'base "$ccls/memberHierarchy"
+(append (lsp--text-document-position-params) '(:flat t))))
+
+;; The meaning of :role corresponds to https://github.com/maskray/ccls/blob/master/src/symbol.h
+
+;; References w/ Role::Address bit (e.g. variables explicitly being taken addresses)
+(defun ccls/references-address ()
+  (interactive)
+  (lsp-ui-peek-find-custom
+   'address "textDocument/references"
+   (plist-put (lsp--text-document-position-params) :context
+              '(:role 128))))
+
+;; References w/ Role::Dynamic bit (macro expansions)
+(defun ccls/references-macro ()
+  (interactive)
+  (lsp-ui-peek-find-custom
+   'address "textDocument/references"
+   (plist-put (lsp--text-document-position-params) :context
+              '(:role 64))))
+
+;; References w/o Role::Call bit (e.g. where functions are taken addresses)
+(defun ccls/references-not-call ()
+  (interactive)
+  (lsp-ui-peek-find-custom
+   'address "textDocument/references"
+   (plist-put (lsp--text-document-position-params) :context
+              '(:excludeRole 32))))
+
+;; References w/ Role::Read
+(defun ccls/references-read ()
+  (interactive)
+  (lsp-ui-peek-find-custom
+   'read "textDocument/references"
+   (plist-put (lsp--text-document-position-params) :context
+              '(:role 8))))
+
+;; References w/ Role::Write
+(defun ccls/references-write ()
+  (interactive)
+  (lsp-ui-peek-find-custom
+   'write "textDocument/references"
+   (plist-put (lsp--text-document-position-params) :context
+              '(:role 16))))
+
+;; xref-find-apropos (workspace/symbol)
+
+(defun my/highlight-pattern-in-text (pattern line)
+  (when (> (length pattern) 0)
+    (let ((i 0))
+     (while (string-match pattern line i)
+       (setq i (match-end 0))
+       (add-face-text-property (match-beginning 0) (match-end 0) 'isearch t line)
+       )
+     line)))
+
+(with-eval-after-load 'lsp-methods
+  ;;; Override
+  ;; This deviated from the original in that it highlights pattern appeared in symbol
+  (defun lsp--symbol-information-to-xref (pattern symbol)
+   "Return a `xref-item' from SYMBOL information."
+   (let* ((location (gethash "location" symbol))
+          (uri (gethash "uri" location))
+          (range (gethash "range" location))
+          (start (gethash "start" range))
+          (name (gethash "name" symbol)))
+     (xref-make (format "[%s] %s"
+                        (alist-get (gethash "kind" symbol) lsp--symbol-kind)
+                        (my/highlight-pattern-in-text (regexp-quote pattern) name))
+                (xref-make-file-location (string-remove-prefix "file://" uri)
+                                         (1+ (gethash "line" start))
+                                         (gethash "character" start)))))
+
+  (cl-defmethod xref-backend-apropos ((_backend (eql xref-lsp)) pattern)
+    (let ((symbols (lsp--send-request (lsp--make-request
+                                       "workspace/symbol"
+                                       `(:query ,pattern)))))
+      (mapcar (lambda (x) (lsp--symbol-information-to-xref pattern x)) symbols)))
+)
 
 ; --------------------------------- ibuffer ---------------------------------------
 
