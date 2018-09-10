@@ -109,6 +109,9 @@
 ; hide toolbar
 (setq tool-bar-mode nil)
 
+; just load .dir-locals.el
+(setq enable-local-variables :all)
+
 ; --------------------------------- ccls ---------------------------------------
 
 (setq ccls-executable "~/ccls/Release/ccls")
@@ -577,7 +580,6 @@
 (global-set-key [remap next-buffer] 'my-next-buffer)
 (global-set-key [remap previous-buffer] 'my-previous-buffer)
 
-(setq enable-local-variables :all)
 (global-flycheck-mode -1)
 
 ; --------------------------------- indentation ---------------------------------------
