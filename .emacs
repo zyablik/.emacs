@@ -54,7 +54,7 @@
         (all-modes-hook)
         (linum-mode)
         (hlinum-activate)
-        (dtrt-indent-mode 1)
+;        (dtrt-indent-mode 1)
         (setq show-trailing-whitespace t)))
 
 (add-hook 'special-mode-hook 'hl-line-mode)
