@@ -578,6 +578,8 @@
 (global-set-key [remap previous-buffer] 'my-previous-buffer)
 
 (setq enable-local-variables :all)
+(global-flycheck-mode -1)
+
 ; --------------------------------- indentation ---------------------------------------
 
 ; disable auto indentation
