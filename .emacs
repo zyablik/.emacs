@@ -392,7 +392,11 @@
 
 (global-set-key (kbd "S-<f8>") 'hl-highlight-thingatpt-local)
 
+(global-set-key (kbd "<f11>") #'imenu-list-smart-toggle)
+
 (global-set-key (kbd "<f12>") 'sr-speedbar-toggle)
+(setq imenu-list-auto-resize t)
+(setq imenu-list-focus-after-activation t)
 
 (add-hook 'speedbar-reconfigure-keymaps-hook
     (lambda ()
