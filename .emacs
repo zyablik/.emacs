@@ -17,33 +17,43 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-revert-use-notify t)
- '(ccls-sem-function-colors (quote ("#b58000" "#624724" "#bb6800" "#b28f5f" "#a64be7" "#5834ee" "#b48923" "#733400" "#825800" "#a66825")))
- '(ccls-sem-macro-colors (quote ("#b76400" "#95070d" "#b87242" "#a81e00" "#764215" "#b24a03" "#6b1a01" "#8639ee" "#b24a41" "#9f3d19")))
- '(ccls-sem-namespace-colors (quote ("#126800" "#289174" "#2e9618" "#06512b" "#43861d" "#114a00" "#139c41" "#4e8739" "#288f59" "#0e6f1a")))
- '(ccls-sem-parameter-colors (quote ("##126800" "#289174" "#1e8608" "#06512b" "#43861d" "#114a00" "#139c41" "#4e8739" "#288f59" "#0e6f1a")))
- '(ccls-sem-type-colors (quote ("#b17f93" "#a5038b" "#6b374f" "#b32086" "#701330" "#ad528c" "#ae0834" "#7d0f57" "#ad4a60" "#b0135a")))
+ '(ccls-sem-function-colors
+ (quote
+  ("#b58000" "#624724" "#bb6800" "#b28f5f" "#a64be7" "#5834ee" "#b48923" "#733400" "#825800" "#a66825")))
+ '(ccls-sem-macro-colors
+ (quote
+  ("#b76400" "#95070d" "#b87242" "#a81e00" "#764215" "#b24a03" "#6b1a01" "#8639ee" "#b24a41" "#9f3d19")))
+ '(ccls-sem-namespace-colors
+ (quote
+  ("#126800" "#289174" "#2e9618" "#06512b" "#43861d" "#114a00" "#139c41" "#4e8739" "#288f59" "#0e6f1a")))
+ '(ccls-sem-parameter-colors
+ (quote
+  ("##126800" "#289174" "#1e8608" "#06512b" "#43861d" "#114a00" "#139c41" "#4e8739" "#288f59" "#0e6f1a")))
+ '(ccls-sem-type-colors
+ (quote
+  ("#b17f93" "#a5038b" "#6b374f" "#b32086" "#701330" "#ad528c" "#ae0834" "#7d0f57" "#ad4a60" "#b0135a")))
  '(comment-style (quote extra-line))
  '(custom-enabled-themes (quote (tsdh-light)))
  '(delete-selection-mode t)
  '(package-selected-packages
  (quote
-  (rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors dtrt-indent cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode auto-complete bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
+  (imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 97 :width normal :foundry "PfEd" :family "Consolas"))))
+ '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "PfEd" :family "Hack"))))
  '(diredp-compressed-file-suffix ((t (:foreground "#7b68ee"))))
- '(diredp-ignored-file-name ((t (:foreground "#aaaaaa")))))
+ '(diredp-ignored-file-name ((t (:foreground "#aaaaaa"))))
+ '(lsp-ui-sideline-code-action ((t (:foreground "orange")))))
 
 ; smex for lru in counsel-M-x
 
 ; --------------------------------- hooks ---------------------------------------
 
 (defun all-modes-hook()
-    (auto-complete-mode)
     ; consider _ and - as part of the word (while selection)
     (modify-syntax-entry ?_ "w")
     (modify-syntax-entry ?- "w")
@@ -68,6 +78,10 @@
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
 (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+
+(add-hook 'c-mode-common-hook (lambda ()
+        (when (derived-mode-p 'c-mode 'c++-mode)
+              (ggtags-mode 1))))
 
 ;----------------------------------don't bother me ---------------------------------
 
@@ -97,19 +111,44 @@
 
 ; --------------------------------- ccls ---------------------------------------
 
-(setq ccls-executable "/home/zyablik/ccls/Debug/ccls")
-(setq ccls-extra-args '("-log-file=/home/zyablik/ccls.log" "-v=9"))
-(setq ccls-cache-dir "/home/zyablik/.ccls-cache")
+(setq ccls-executable "~/ccls/Release/ccls")
+(setq ccls-extra-args '("-log-file=../../ccls.log"))
+(setq ccls-cache-dir "../../.ccls-cache")
 
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode)
-              (lsp-ccls-enable)
-              (ccls-use-default-rainbow-sem-highlight)
-              )))
+(add-hook 'after-init-hook 'global-company-mode)
+(require 'company-lsp)
+
+;(setq lsp-ui-doc-include-signature nil)  ; don't include type signature in the child frame
+(setq lsp-ui-sideline-show-symbol nil)  ; don't show symbol on the right of info
+
+; https://github.com/MaskRay/ccls/blob/master/src/config.h
+
+(setq ccls-extra-init-params '(
+                               :index (:comments 2)
+                               :completion (:detailedLabel t :caseSensitivity 0)))
+
+(setq company-show-numbers t)
+
+; required for company-lsp func arguments snippets
+(yas-global-mode 1)
+
+(defun enbale-ccls-and-stuff ()
+    (interactive)
+    (message "enbale-ccls-and-stuff")
+    (semantic-mode -1)
+    (ggtags-mode -1)
+    (lsp-ccls-enable)
+    (flycheck-mode)
+    (ccls-use-default-rainbow-sem-highlight)
+    (set (make-local-variable 'company-backends) '(company-lsp company-dabbrev))
+    (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)) ; disabling client-side cache and sorting because the ccls server does a better job.
 
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-(add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
+
+;(add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
+
+; do not show extra prompt when looking for references (M-.)
+(setq xref-prompt-for-identifier (append xref-prompt-for-identifier (list 'xref-find-references)))
 
 (setq ccls-sem-highlight-method 'font-lock)
 
@@ -117,7 +156,13 @@
 
 (defun ccls/base () (interactive) (lsp-ui-peek-find-custom 'base "$ccls/base"))
 (defun ccls/callers () (interactive) (lsp-ui-peek-find-custom 'callers "$ccls/callers"))
-(defun ccls/vars (kind) (lsp-ui-peek-find-custom 'vars "$ccls/vars" (plist-put (lsp--text-document-position-params) :kind kind)))
+;(defun ccls/callers () (interactive) (lsp-find-custom "$ccls/callers"))
+
+(defun ccls/vars (kind) (lsp-find-custom "$ccls/vars" (plist-put (lsp--text-document-position-params) :kind kind)))
+(defun ccls/vars_variable()  (interactive) (ccls/vars 3)) ;; field or local variable
+(defun ccls/vars_field()     (interactive) (ccls/vars 1)) ;; field
+(defun ccls/vars_parameter() (interactive) (ccls/vars 4)) ;; parameter
+
 (defun ccls/bases ()
   (interactive)
   (lsp-ui-peek-find-custom 'base "$ccls/inheritanceHierarchy"
@@ -146,34 +191,30 @@
   (interactive)
   (lsp-ui-peek-find-custom
    'address "textDocument/references"
-   (plist-put (lsp--text-document-position-params) :context
-              '(:role 64))))
+   (plist-put (lsp--text-document-position-params) :context '(:role 64))))
 
 ;; References w/o Role::Call bit (e.g. where functions are taken addresses)
 (defun ccls/references-not-call ()
   (interactive)
   (lsp-ui-peek-find-custom
    'address "textDocument/references"
-   (plist-put (lsp--text-document-position-params) :context
-              '(:excludeRole 32))))
+   (plist-put (lsp--text-document-position-params) :context '(:excludeRole 32))))
 
 ;; References w/ Role::Read
 (defun ccls/references-read ()
   (interactive)
   (lsp-ui-peek-find-custom
    'read "textDocument/references"
-   (plist-put (lsp--text-document-position-params) :context
-              '(:role 8))))
+   (plist-put (lsp--text-document-position-params) :context '(:role 8))))
 
 ;; References w/ Role::Write
 (defun ccls/references-write ()
   (interactive)
   (lsp-ui-peek-find-custom
    'write "textDocument/references"
-   (plist-put (lsp--text-document-position-params) :context
-              '(:role 16))))
+   (plist-put (lsp--text-document-position-params) :context '(:role 16))))
 
-;; xref-find-apropos (workspace/symbol)
+;; xref-find-apropos (workspace/symbol), match highlighted
 
 (defun my/highlight-pattern-in-text (pattern line)
   (when (> (length pattern) 0)
@@ -207,6 +248,26 @@
                                        `(:query ,pattern)))))
       (mapcar (lambda (x) (lsp--symbol-information-to-xref pattern x)) symbols)))
 )
+
+; /usr/share/emacs/25.2/etc/images/
+; ccls-member-hierarchy times out (
+(tool-bar-add-item "mail/outbox" (lambda() (interactive) (ccls-call-hierarchy nil)) 'callers-hier)
+(tool-bar-add-item "mail/inbox"  (lambda() (interactive) (ccls-call-hierarchy t))   'callees-hier)
+
+(tool-bar-add-item "ezimage/box-minus"  (lambda() (interactive) (ccls-inheritance-hierarchy nil)) 'inh-base-hier)
+(tool-bar-add-item "ezimage/box-minus"  (lambda() (interactive) (ccls-inheritance-hierarchy t))   'inh-derv-hier)
+
+(tool-bar-add-item "gud/down" 'lsp-ui-peek-find-implementation 'find-impl)
+; (tool-bar-add-item "gud/down" 'lsp-goto-implementation 'find-impl) ; same via ivy-xref
+
+(tool-bar-add-item "gud/down" 'ccls-member-hierarchy 'member-hier)
+
+(tool-bar-add-item "copy" 'lsp-rename 'rename)
+
+(global-set-key (kbd "M-<kp-8>") (lambda() (interactive) (ccls-navigate "U")))
+(global-set-key (kbd "M-<kp-5>") (lambda() (interactive) (ccls-navigate "D")))
+(global-set-key (kbd "M-<kp-4>") (lambda() (interactive) (ccls-navigate "L")))
+(global-set-key (kbd "M-<kp-6>") (lambda() (interactive) (ccls-navigate "R")))
 
 ; --------------------------------- ibuffer ---------------------------------------
 
@@ -289,15 +350,6 @@
 
 (recentf-mode t)
 (setq recentf-max-saved-items 50)
-
-; --------------------------------- autocomplete ---------------------------------------
-
-; auto-complete
-(ac-config-default) ; enable auto-complete
-(setq ac-disable-faces nil) ; enable completion inside strings
-(setq ac-auto-show-menu nil)
-;(defun ac-common-setup ()
-;  (setq ac-sources (append ac-sources '(ac-source-filename))))
 
 ; --------------------------------- bookmarks ---------------------------------------
 
@@ -495,12 +547,6 @@
 (desktop-save-mode t)
 
 (setq mouse-wheel-progressive-speed nil)
-
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-;              (ggtags-mode 1)
-)))
 
 (bury-successful-compilation 1)
 
