@@ -357,6 +357,12 @@
         (replace-regexp "\\([A-Z]\\)" "_\\1" nil (1+ start) end)
         (downcase-region start (cdr (bounds-of-thing-at-point 'symbol)))))))
 
+(defun my-kill-emacs ()
+  "save some buffers, then exit unconditionally"
+  (interactive)
+  (save-some-buffers nil t)
+  (kill-emacs))
+
 ; --------------------------------- bindings ---------------------------------------
 
 ; replace BufferMenu with ibuffer
@@ -431,6 +437,8 @@
 (global-set-key (kbd "M-%") 'vr/query-replace)
 
 (global-set-key (kbd "C-:") 'avy-goto-char-2)
+
+(global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
 ; --------------------------------- ivy ---------------------------------------
 
