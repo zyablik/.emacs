@@ -135,6 +135,14 @@
 ; required for company-lsp func arguments snippets
 (yas-global-mode 1)
 
+; No delay in showing suggestions.
+(setq company-idle-delay 0.1)
+
+; Show suggestions after entering one character.
+(setq company-minimum-prefix-length 1)
+
+(setq company-selection-wrap-around t)
+
 (defun enbale-ccls-and-stuff ()
     (interactive)
     (message "enbale-ccls-and-stuff")
