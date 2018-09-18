@@ -142,6 +142,11 @@
 (setq company-minimum-prefix-length 1)
 
 (setq company-selection-wrap-around t)
+(setq company-dabbrev- nil)
+(setq company-dabbrev-downcase nil)
+(setq company-dabbrev-ignore-case nil)
+(setq company-dabbrev-minimum-length 1)
+(setq company-dabbrev-other-buffers nil)
 
 (defun enbale-ccls-and-stuff ()
     (interactive)
