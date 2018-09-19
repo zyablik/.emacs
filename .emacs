@@ -431,6 +431,15 @@
   (save-some-buffers nil t)
   (kill-emacs))
 
+(defun yank-current-word ()
+  "replace current word with last entry from kill-ring"
+  (interactive)
+  (left-word)
+  (mark-word)
+  (delete-active-region)
+  (yank)
+)
+
 ; --------------------------------- bindings ---------------------------------------
 
 ; replace BufferMenu with ibuffer
@@ -518,6 +527,9 @@
 (global-set-key (kbd "C-:") 'avy-goto-char-2)
 
 (global-set-key (kbd "C-x C-c") 'my-kill-emacs)
+
+(global-set-key (kbd "C-M-<insert>") (lambda() (interactive) (kill-new (thing-at-point 'symbol)))) ; copy current word
+(global-set-key (kbd "S-M-<insert>") 'yank-current-word)
 
 ; --------------------------------- ivy ---------------------------------------
 
