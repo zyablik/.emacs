@@ -59,6 +59,7 @@
     ; consider _ and - as part of the word (while selection)
     (modify-syntax-entry ?_ "w")
     (modify-syntax-entry ?- "w")
+    (hl-highlight-mode) ; enable S-<f8>
 )
 
 (add-hook 'prog-mode-hook
@@ -335,9 +336,6 @@
 
 ; highlight current line
 ;(global-hl-line-mode 1)
-
-; enable S-<f8>
-(hl-global-highlight-on/off)
 
 ; --------------------------------- speedbar ---------------------------------------
 
