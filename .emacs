@@ -500,16 +500,9 @@
 
 (global-unset-key (kbd "<insert>"))
 
-; current selection (if any) as a default text for swiper
-(global-set-key (kbd "C-s") 
-    (lambda()
-        (interactive)
-        (if (use-region-p)
-            (swiper (buffer-substring-no-properties (mark) (point)))
-            (swiper))))
-
-;(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "C-S-s") 'swiper-multi)
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-S-s") (lambda() (interactive) (swiper (thing-at-point 'symbol))))
+(global-set-key (kbd "C-M-s") 'swiper-multi)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-h v") 'counsel-describe-variable)
