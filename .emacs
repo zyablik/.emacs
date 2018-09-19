@@ -118,8 +118,8 @@
 ; --------------------------------- ccls ---------------------------------------
 
 (setq ccls-executable "~/ccls/Release/ccls")
-(setq ccls-extra-args '("-log-file=../../ccls.log"))
-(setq ccls-cache-dir "../../.ccls-cache")
+;(setq ccls-extra-args '("-log-file=../../ccls.log"))
+(setq ccls-cache-dir ".ccls-cache")
 
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'company-lsp)
@@ -593,6 +593,7 @@
 (global-set-key [remap next-buffer] 'my-next-buffer)
 (global-set-key [remap previous-buffer] 'my-previous-buffer)
 
+; enable only for ccls
 (global-flycheck-mode -1)
 
 ; --------------------------------- indentation ---------------------------------------
