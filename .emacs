@@ -498,7 +498,7 @@
 
 (global-set-key (kbd "C-d") 'duplicate-line)
 
-(add-hook 'c++-mode-hook
+(add-hook 'c-mode-common-hook
     (lambda ()
         (local-set-key (kbd "C-d") #'duplicate-line)))
 
