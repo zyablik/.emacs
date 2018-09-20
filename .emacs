@@ -307,7 +307,8 @@
 
 (setq grep-find-template "find <D> <X> -type f <F> -exec grep <C> -I -C1  -n -e <R> /dev/null {} +")
 
-(define-key projectile-mode-map (kbd "C-c") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
 
 (add-hook 'ibuffer-mode-hook
     (lambda()
