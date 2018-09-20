@@ -610,6 +610,9 @@
 
 (back-button-mode 1)
 
+; force vr-steroids to override orig vr
+(require 'visual-regexp-steroids)
+
 ; --------------------------------- indentation ---------------------------------------
 
 ; disable auto indentation
