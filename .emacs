@@ -59,6 +59,7 @@
     ; consider _ and - as part of the word (while selection)
     (modify-syntax-entry ?_ "w")
     (modify-syntax-entry ?- "w")
+    (modify-syntax-entry ?+ "w")
     (hl-highlight-mode) ; enable S-<f8>
 )
 
