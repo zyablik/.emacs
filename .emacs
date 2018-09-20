@@ -37,7 +37,7 @@
  '(delete-selection-mode t)
  '(package-selected-packages
  (quote
-  (buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
+  (back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -605,6 +605,8 @@
 
 ; enable only for ccls
 (global-flycheck-mode -1)
+
+(back-button-mode 1)
 
 ; --------------------------------- indentation ---------------------------------------
 
