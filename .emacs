@@ -442,6 +442,19 @@
   (yank)
 )
 
+; skip Ibuffer while switching buffers
+(defun my-next-buffer ()
+  (interactive)
+  (next-buffer)
+  (when (string= "*Ibuffer*" (buffer-name))
+      (next-buffer)))
+
+(defun my-previous-buffer ()
+  (interactive)
+  (previous-buffer)
+  (when (string= "*Ibuffer*" (buffer-name))
+      (previous-buffer)))
+
 ; --------------------------------- bindings ---------------------------------------
 
 ; replace BufferMenu with ibuffer
@@ -531,6 +544,9 @@
 (global-set-key (kbd "C-c C-<left>")   'buf-move-left)
 (global-set-key (kbd "C-c C-<right>")  'buf-move-right)
 
+(global-set-key (kbd "C-S-x C-<left>") 'my-next-buffer)
+(global-set-key (kbd "C-S-x C-<right>") 'my-previous-buffer)
+
 ; --------------------------------- ivy ---------------------------------------
 
 (ivy-mode 1)
@@ -588,22 +604,6 @@
 ; function-arguments for moo-jump-local
 (fa-config-default)
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
-; skip Ibuffer while switching buffers
-(defun my-next-buffer ()
-  (interactive)
-  (next-buffer)
-  (when (string= "*Ibuffer*" (buffer-name))
-      (next-buffer)))
-
-(defun my-previous-buffer ()
-  (interactive)
-  (previous-buffer)
-  (when (string= "*Ibuffer*" (buffer-name))
-      (previous-buffer)))
-
-(global-set-key [remap next-buffer] 'my-next-buffer)
-(global-set-key [remap previous-buffer] 'my-previous-buffer)
 
 ; enable only for ccls
 (global-flycheck-mode -1)
