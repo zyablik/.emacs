@@ -516,6 +516,7 @@
 (global-unset-key (kbd "<insert>"))
 
 (global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-f") 'swiper)
 (global-set-key (kbd "C-S-s") (lambda() (interactive) (swiper (thing-at-point 'symbol))))
 (global-set-key (kbd "C-M-s") 'swiper-multi)
 (global-set-key (kbd "M-x") 'counsel-M-x)
