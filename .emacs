@@ -280,8 +280,8 @@
 ; (tool-bar-add-item "gud/down" 'lsp-goto-implementation 'find-impl) ; same via ivy-xref
 
 (tool-bar-add-item "gud/down" 'ccls-member-hierarchy 'member-hier)
-
 (tool-bar-add-item "copy" 'lsp-rename 'rename)
+(tool-bar-add-item "newsticker/narrow" 'ccls-preprocess-file 'preprocess)
 
 (global-set-key (kbd "M-<kp-8>") (lambda() (interactive) (ccls-navigate "U")))
 (global-set-key (kbd "M-<kp-5>") (lambda() (interactive) (ccls-navigate "D")))
