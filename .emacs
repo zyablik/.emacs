@@ -37,7 +37,7 @@
  '(delete-selection-mode t)
  '(package-selected-packages
  (quote
-  (ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
+  (buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -523,6 +523,11 @@
 
 (global-set-key (kbd "C-M-<insert>") (lambda() (interactive) (kill-new (thing-at-point 'symbol)))) ; copy current word
 (global-set-key (kbd "S-M-<insert>") 'yank-current-word)
+
+(global-set-key (kbd "C-c C-<up>")     'buf-move-up)
+(global-set-key (kbd "C-c C-<down>")   'buf-move-down)
+(global-set-key (kbd "C-c C-<left>")   'buf-move-left)
+(global-set-key (kbd "C-c C-<right>")  'buf-move-right)
 
 ; --------------------------------- ivy ---------------------------------------
 
