@@ -37,7 +37,7 @@
  '(delete-selection-mode t)
  '(package-selected-packages
  (quote
-  (back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
+  (evil-nerd-commenter counsel-projectile back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -547,6 +547,8 @@
 
 (global-set-key (kbd "C-S-x C-<left>") 'my-next-buffer)
 (global-set-key (kbd "C-S-x C-<right>") 'my-previous-buffer)
+
+(global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
 
 ; --------------------------------- ivy ---------------------------------------
 
