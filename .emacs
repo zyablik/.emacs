@@ -619,6 +619,19 @@
 ; force vr-steroids to override orig vr
 (require 'visual-regexp-steroids)
 
+(which-function-mode 1)
+(setq which-func-unknown "∅")
+
+(setq mode-line-format (delete (assoc 'which-func-mode
+                                      mode-line-format) mode-line-format)
+      which-func-header-line-format '(which-func-mode ("" which-func-format)))
+
+ (defadvice which-func-ff-hook (after header-line activate)
+   (when which-func-mode
+     (setq mode-line-format (delete (assoc 'which-func-mode
+                                           mode-line-format) mode-line-format)
+           header-line-format which-func-header-line-format)))
+
 ; --------------------------------- indentation ---------------------------------------
 
 ; disable auto indentation
