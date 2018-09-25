@@ -304,7 +304,7 @@
 (setq projectile-track-known-projects-automatically nil)
 (setq projectile-verbose t)
 (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
-(setq projectile-git-command "find . -type f -not -path '*/.git/*' -not -path '*/.hg/*' -not -path '*.pyc' -print0")
+(setq projectile-git-command "find . -type f -not -path '*/.git/*' -not -path '*/.hg/*' -not -path '*.pyc' -not -path '*/.ccls-cache/*' -print0")
 
 (setq grep-find-template "find <D> <X> -type f <F> -exec grep <C> -I -C1  -n -e <R> /dev/null {} +")
 
