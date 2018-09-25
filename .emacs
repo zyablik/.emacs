@@ -33,6 +33,7 @@
  (quote
   ("#b17f93" "#a5038b" "#6b374f" "#b32086" "#701330" "#ad528c" "#ae0834" "#7d0f57" "#ad4a60" "#b0135a")))
  '(custom-enabled-themes (quote (tsdh-light)))
+ '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
  (quote
   (evil-nerd-commenter counsel-projectile back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
