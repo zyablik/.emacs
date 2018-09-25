@@ -549,6 +549,8 @@
 
 (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
 
+(global-set-key (kbd "<escape> <escape>") 'keyboard-escape-quit)
+
 ; --------------------------------- ivy ---------------------------------------
 
 (ivy-mode 1)
