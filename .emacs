@@ -159,7 +159,7 @@
     (lsp-ccls-enable)
     (flycheck-mode)
     (ccls-use-default-rainbow-sem-highlight)
-    (set (make-local-variable 'company-backends) '(company-lsp company-dabbrev))
+    (set (make-local-variable 'company-backends) '((company-dabbrev company-lsp)))
     (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)) ; disabling client-side cache and sorting because the ccls server does a better job.
 
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
