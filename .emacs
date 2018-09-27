@@ -37,7 +37,7 @@
  '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
  (quote
-  (evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
+  (undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors cmake-font-lock popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -632,6 +632,9 @@
      (setq mode-line-format (delete (assoc 'which-func-mode
                                            mode-line-format) mode-line-format)
            header-line-format which-func-header-line-format)))
+
+(global-undo-tree-mode)
+(setq undo-tree-visualizer-diff t)
 
 ; --------------------------------- indentation ---------------------------------------
 
