@@ -515,10 +515,11 @@
 
 (global-unset-key (kbd "<insert>"))
 
-(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-s") 'save-buffer)
+
 (global-set-key (kbd "C-f") 'swiper)
-(global-set-key (kbd "C-S-s") (lambda() (interactive) (swiper (thing-at-point 'symbol))))
-(global-set-key (kbd "C-M-s") 'swiper-multi)
+(global-set-key (kbd "C-S-f") (lambda() (interactive) (swiper (thing-at-point 'symbol))))
+(global-set-key (kbd "C-M-f") 'swiper-multi)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-h v") 'counsel-describe-variable)
