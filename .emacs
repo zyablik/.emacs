@@ -119,8 +119,8 @@
 ; --------------------------------- ccls ---------------------------------------
 
 (setq ccls-executable "~/ccls/Release/ccls")
-;(setq ccls-extra-args '("-log-file=../../ccls.log"))
-(setq ccls-cache-dir ".ccls-cache")
+;(setq ccls-extra-args '(format("-log-file=%s/ccls.log" (getenv "HOME"))))
+(setq ccls-cache-dir (format "%s/.ccls-cache" (getenv "HOME")))
 
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'company-lsp)
