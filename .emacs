@@ -140,7 +140,7 @@
 (yas-global-mode 1)
 
 ; No delay in showing suggestions.
-(setq company-idle-delay 0.1)
+(setq company-idle-delay 0.0)
 
 ; Show suggestions after entering one character.
 (setq company-minimum-prefix-length 1)
@@ -152,15 +152,62 @@
 (setq company-dabbrev-minimum-length 1)
 (setq company-dabbrev-other-buffers nil)
 
-(defun enbale-ccls-and-stuff ()
+(eval-after-load 'company '(define-key company-active-map (kbd "C-S") nil))
+
+(defun ccls-company-complete ()
+       (interactive)
+       (set (make-local-variable 'old-frontends) company-frontends)
+       (set (make-local-variable 'old-backends) company-backends)
+
+       (company-cancel)
+
+       (defun restore-company-ends(arg)
+         (set (make-local-variable 'company-frontends) old-frontends)
+         (set (make-local-variable 'company-backends) old-backends)
+         (setq company-completion-cancelled-hook nil)
+         (setq company-completion-finished-hook nil)
+         (define-key company-active-map (kbd "<up>") nil)
+         (define-key company-active-map (kbd "<down>") nil))
+
+       (setq company-completion-cancelled-hook 'restore-company-ends)
+       (setq company-completion-finished-hook 'restore-company-ends)
+
+       (set (make-local-variable 'company-frontends) '(company-pseudo-tooltip-frontend))
+       (set (make-local-variable 'company-backends) '(company-lsp company-dabbrev))
+
+       (define-key company-active-map (kbd "<up>") 'company-select-previous-or-abort)
+       (define-key company-active-map (kbd "<down>") 'company-select-next-or-abort)
+
+       (company-manual-begin))
+
+(advice-add 'select-window :after
+    (lambda (_ &optional _)
+        (if (bound-and-true-p lsp-ui-mode)
+            (if (< (window-pixel-width) 1200)
+                (progn
+                  ;; (message "disable sideline")
+                  (lsp-ui-sideline-enable nil))
+              (progn
+                ;; (message "enable sideline")
+                (lsp-ui-sideline-enable t))))))
+
+(defun enable-ccls-and-stuff ()
     (interactive)
-    (message "enbale-ccls-and-stuff")
+    (message "enable-ccls-and-stuff")
     (semantic-mode -1)
     (ggtags-mode -1)
     (lsp-ccls-enable)
     (flycheck-mode)
     (ccls-use-default-rainbow-sem-highlight)
-    (set (make-local-variable 'company-backends) '((company-dabbrev company-lsp)))
+    (set (make-local-variable 'company-frontends) '(company-preview-common-frontend ))
+    ;; (set (make-local-variable 'company-backends) '((company-dabbrev company-lsp)))
+    (set (make-local-variable 'company-backends) '((company-yasnippet company-dabbrev)))
+    (use-local-map (copy-keymap c++-mode-map))
+    (local-set-key (kbd "C-SPC") 'ccls-company-complete)
+
+    (define-key company-active-map (kbd "<up>") nil)
+    (define-key company-active-map (kbd "<down>") nil)
+
     (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)) ; disabling client-side cache and sorting because the ccls server does a better job.
 
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
