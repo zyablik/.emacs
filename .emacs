@@ -55,6 +55,8 @@
 
 ; --------------------------------- hooks ---------------------------------------
 
+;; (setq debug-on-error t)
+
 (defun all-modes-hook()
     ; consider _ and - as part of the word (while selection)
     (modify-syntax-entry ?_ "w")
