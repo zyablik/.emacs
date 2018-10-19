@@ -70,6 +70,7 @@
         (all-modes-hook)
         (linum-mode)
         (hlinum-activate)
+        (hs-minor-mode)
 ;        (dtrt-indent-mode 1)
         (setq show-trailing-whitespace t)))
 
