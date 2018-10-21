@@ -37,7 +37,7 @@
  '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
  (quote
-  (clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
+  (git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -629,6 +629,23 @@
       (setq quit-flag nil)))
 
 (setq xref-show-xrefs-function #'my-ivy-xref-show-xrefs)
+
+
+; --------------------------------- git-gutter ---------------------------------
+
+(global-git-gutter-mode t)
+(git-gutter:linum-setup)
+
+(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+
+(set-face-foreground 'git-gutter:modified "purple")
+(set-face-foreground 'git-gutter:added "dark green")
+(set-face-foreground 'git-gutter:deleted "dark red")
+
+(add-to-list 'git-gutter:update-hooks 'focus-in-hook)
+
+(setq git-gutter:lighter " gg")
 
 ; --------------------------------- misc ---------------------------------------
 
