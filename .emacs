@@ -37,7 +37,7 @@
  '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
  (quote
-  (git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
+  (buffer-flip git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -550,8 +550,8 @@
     (lambda ()
         (local-set-key (kbd "C-d") #'duplicate-line)))
 
-(global-set-key (kbd "C-<tab>") 'previous-buffer)
-(global-set-key (kbd "C-S-<iso-lefttab>") 'next-buffer)
+;; (global-set-key (kbd "C-<tab>") 'previous-buffer)
+;; (global-set-key (kbd "C-S-<iso-lefttab>") 'next-buffer)
 
 (global-set-key (kbd "C-v") 'yank)
 
@@ -704,6 +704,13 @@
 (global-undo-tree-mode)
 (setq undo-tree-visualizer-diff t)
 
+(global-set-key (kbd "C-<tab>") 'buffer-flip)
+(setq buffer-flip-map
+      (let ((map (make-sparse-keymap)))
+        (define-key map (kbd "C-<tab>")   'buffer-flip-forward)
+        (define-key map (kbd "C-S-<iso-lefttab>") 'buffer-flip-backward)
+        (define-key map (kbd "M-ESC")     'buffer-flip-abort)
+        map))
 ; --------------------------------- indentation ---------------------------------------
 
 ; disable auto indentation
