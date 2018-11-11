@@ -711,6 +711,12 @@
         (define-key map (kbd "C-S-<iso-lefttab>") 'buffer-flip-backward)
         (define-key map (kbd "M-ESC")     'buffer-flip-abort)
         map))
+
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+
 ; --------------------------------- indentation ---------------------------------------
 
 ; disable auto indentation
