@@ -712,6 +712,8 @@
         (define-key map (kbd "M-ESC")     'buffer-flip-abort)
         map))
 
+(setq buffer-flip-skip-patterns '("^\\*Ibuffer\\*"))
+
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name))
