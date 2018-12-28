@@ -62,7 +62,7 @@
     (modify-syntax-entry ?_ "w")
     (modify-syntax-entry ?- "w")
     (modify-syntax-entry ?+ "w")
-    (hl-highlight-mode) ; enable S-<f8>
+;    (hl-highlight-mode) ; enable S-<f8>
 )
 
 (add-hook 'prog-mode-hook
