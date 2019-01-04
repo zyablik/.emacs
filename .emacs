@@ -653,6 +653,9 @@
 
 (setq linum-format "%d ")
 
+; Put column number into modeline
+(column-number-mode 1)
+
 ; enable multicursors
 (require 'iedit)
 
