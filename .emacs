@@ -32,6 +32,7 @@
  '(ccls-sem-type-colors
  (quote
   ("#b17f93" "#a5038b" "#6b374f" "#b32086" "#701330" "#ad528c" "#ae0834" "#7d0f57" "#ad4a60" "#b0135a")))
+ '(compilation-read-command nil)
  '(custom-enabled-themes (quote (tsdh-light)))
  '(imenu-auto-rescan t)
  '(lsp-imenu-show-container-name nil)
