@@ -38,8 +38,8 @@
  '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
  (quote
-  (company-glsl glsl-mode visible-mark buffer-flip git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-anything hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))))
-
+  (easy-kill yaml-mode company-glsl glsl-mode buffer-flip git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar)))
+ '(semantic-idle-scheduler-idle-time 10))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -648,6 +648,38 @@
 
 (setq git-gutter:lighter " gg")
 
+; --------------------------------- which-func ---------------------------------------
+(which-function-mode 1)
+(setq which-func-unknown "∅")
+
+(setq mode-line-format (delete (assoc 'which-func-mode
+                                      mode-line-format) mode-line-format)
+      which-func-header-line-format '(which-func-mode ("" which-func-format)))
+
+(defadvice which-func-ff-hook (after header-line activate)
+    (when which-func-mode
+        (setq mode-line-format
+            (delete (assoc 'which-func-mode mode-line-format) mode-line-format)
+            header-line-format which-func-header-line-format)))
+
+(global-set-key [remap kill-ring-save] 'easy-kill)
+
+; --------------------------------- easy-kill ---------------------------------------
+(require 'easy-kill) ; to define easy-kill-base-map
+
+; override some default prefixes
+(setq easy-kill-alist
+   '( (?w word " ")
+      (?s sexp "")
+      (?d defun "")
+      (?l line "")
+      (?b buffer-file-name nil)))
+
+; add M-w f for current function name
+(define-key easy-kill-base-map (kbd "f") (lambda()
+    (interactive)
+    (easy-kill-adjust-candidate 'which-function (which-function))))
+
 ; --------------------------------- misc ---------------------------------------
 
 (delete-selection-mode)
@@ -691,19 +723,6 @@
 
 ; force vr-steroids to override orig vr
 (require 'visual-regexp-steroids)
-
-(which-function-mode 1)
-(setq which-func-unknown "∅")
-
-(setq mode-line-format (delete (assoc 'which-func-mode
-                                      mode-line-format) mode-line-format)
-      which-func-header-line-format '(which-func-mode ("" which-func-format)))
-
- (defadvice which-func-ff-hook (after header-line activate)
-   (when which-func-mode
-     (setq mode-line-format (delete (assoc 'which-func-mode
-                                           mode-line-format) mode-line-format)
-           header-line-format which-func-header-line-format)))
 
 (global-undo-tree-mode)
 (setq undo-tree-visualizer-diff t)
