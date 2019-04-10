@@ -38,7 +38,7 @@
  '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
  (quote
-  (easy-kill yaml-mode company-glsl glsl-mode buffer-flip git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar)))
+  (json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar)))
  '(semantic-idle-scheduler-idle-time 10))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
