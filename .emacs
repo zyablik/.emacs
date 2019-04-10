@@ -87,6 +87,7 @@
 
 (add-hook 'c-mode-common-hook (lambda ()
         (when (derived-mode-p 'c-mode 'c++-mode)
+              (setq ggtags-highlight-tag nil) ; workaround for "iedit fails when both gtags and git-gutter active"
               (ggtags-mode 1))))
 
 ;----------------------------------don't bother me ---------------------------------
