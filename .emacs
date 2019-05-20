@@ -9,6 +9,8 @@
 
 ;(add-to-list 'load-path "~/.emacs.d")
 
+(add-to-list 'load-path (format "%s/dotemacs" (getenv "HOME")))
+
 ; --------------------------------- autogen ---------------------------------------
 
 (custom-set-variables
