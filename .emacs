@@ -601,6 +601,15 @@
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C--") 'er/contract-region)
 
+(require 'profiler)
+(global-set-key (kbd "<f7>") (lambda ()
+    (interactive)
+    (if (profiler-running-p)
+         (profiler-report)
+         (profiler-start 'cpu))))
+
+(global-set-key (kbd "S-<f7>") 'profiler-stop)
+
 ; --------------------------------- ivy ---------------------------------------
 
 (ivy-mode 1)
