@@ -5,7 +5,7 @@
     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ; enable marmalade
-;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t
+;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
 ;(add-to-list 'load-path "~/.emacs.d")
 
@@ -17,22 +17,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-revert-use-notify t)
- '(ccls-sem-function-colors
- (quote
-  ("#b58000" "#624724" "#bb6800" "#b28f5f" "#a64be7" "#5834ee" "#b48923" "#733400" "#825800" "#a66825")))
- '(ccls-sem-macro-colors
- (quote
-  ("#b76400" "#95070d" "#b87242" "#a81e00" "#764215" "#b24a03" "#6b1a01" "#8639ee" "#b24a41" "#9f3d19")))
- '(ccls-sem-namespace-colors
- (quote
-  ("#126800" "#289174" "#2e9618" "#06512b" "#43861d" "#114a00" "#139c41" "#4e8739" "#288f59" "#0e6f1a")))
- '(ccls-sem-parameter-colors
- (quote
-  ("##126800" "#289174" "#1e8608" "#06512b" "#43861d" "#114a00" "#139c41" "#4e8739" "#288f59" "#0e6f1a")))
- '(ccls-sem-type-colors
- (quote
-  ("#b17f93" "#a5038b" "#6b374f" "#b32086" "#701330" "#ad528c" "#ae0834" "#7d0f57" "#ad4a60" "#b0135a")))
- '(compilation-read-command nil)
  '(custom-enabled-themes (quote (tsdh-light)))
  '(imenu-auto-rescan t)
  '(lsp-imenu-show-container-name nil)
@@ -126,7 +110,14 @@
 (setq ccls-cache-dir (format "%s/.ccls-cache" (getenv "HOME")))
 
 (add-hook 'after-init-hook 'global-company-mode)
+
 (require 'company-lsp)
+
+(setq ccls-sem-function-colors  '("#b58000" "#624724" "#bb6800" "#b28f5f" "#a64be7" "#5834ee" "#b48923" "#733400" "#825800" "#a66825"))
+(setq ccls-sem-macro-colors     '("#b76400" "#95070d" "#b87242" "#a81e00" "#764215" "#b24a03" "#6b1a01" "#8639ee" "#b24a41" "#9f3d19"))
+(setq ccls-sem-namespace-colors '("#126800" "#289174" "#2e9618" "#06512b" "#43861d" "#114a00" "#139c41" "#4e8739" "#288f59" "#0e6f1a"))
+(setq ccls-sem-parameter-colors '("#126800" "#289174" "#1e8608" "#06512b" "#43861d" "#114a00" "#139c41" "#4e8739" "#288f59" "#0e6f1a"))
+(setq ccls-sem-type-colors      '("#b17f93" "#a5038b" "#6b374f" "#b32086" "#701330" "#ad528c" "#ae0834" "#7d0f57" "#ad4a60" "#b0135a"))
 
 ;(setq lsp-ui-doc-include-signature nil)  ; don't include type signature in the child frame
 (setq lsp-ui-sideline-show-symbol nil)  ; don't show symbol on the right of info
@@ -149,7 +140,7 @@
 (setq company-minimum-prefix-length 1)
 
 (setq company-selection-wrap-around t)
-(setq company-dabbrev- nil)
+
 (setq company-dabbrev-downcase nil)
 (setq company-dabbrev-ignore-case nil)
 (setq company-dabbrev-minimum-length 1)
@@ -527,7 +518,7 @@
 ; local bookmarks
 (global-set-key (kbd "C-<f5>") 'bm-toggle)
 (global-set-key (kbd "<f5>")   'bm-next)
-(global-set-key (kbd "<S-f5>") 'bm-previous)
+(global-set-key (kbd "S-<f5>") 'bm-previous)
 (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
 
 (global-set-key (kbd "<f9>") 'toggle-camelcase-underscores)
