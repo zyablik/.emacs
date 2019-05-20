@@ -19,6 +19,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-revert-use-notify t)
+ '(company-frontends (quote (company-preview-common-frontend company-pseudo-tooltip-unless-just-one-frontend-with-delay)))
+ '(company-backends (quote ((company-dabbrev company-yasnippet))))
  '(custom-enabled-themes (quote (tsdh-light)))
  '(imenu-auto-rescan t)
  '(lsp-imenu-show-container-name nil)
@@ -146,11 +148,14 @@
 (setq company-dabbrev-downcase nil)
 (setq company-dabbrev-ignore-case nil)
 (setq company-dabbrev-minimum-length 1)
-(setq company-dabbrev-other-buffers nil)
+(setq company-dabbrev-other-buffers nil) ; show only abbrevs from current buffer
 
-(eval-after-load 'company '(define-key company-active-map (kbd "C-S") nil))
+(setq company-require-match 'never) ; non-completion character closes tooltip
+(setq company-begin-commands '(self-insert-command yank)) ; begin completion after yank
+(setq company-tooltip-idle-delay 1.5) ; company-pseudo-tooltip-unless-just-one-frontend-with-delay
+(setq company-tooltip-limit 15)
 
-(defun ccls-company-complete ()
+(defun company-complete-with-backends (backends)
        (interactive)
        (set (make-local-variable 'old-frontends) company-frontends)
        (set (make-local-variable 'old-backends) company-backends)
@@ -158,8 +163,8 @@
        (company-cancel)
 
        (defun restore-company-ends(arg)
-         (set (make-local-variable 'company-frontends) old-frontends)
-         (set (make-local-variable 'company-backends) old-backends)
+         (setq company-frontends old-frontends)
+         (setq company-backends old-backends)
          (setq company-completion-cancelled-hook nil)
          (setq company-completion-finished-hook nil)
          (define-key company-active-map (kbd "<up>") nil)
@@ -168,8 +173,8 @@
        (setq company-completion-cancelled-hook 'restore-company-ends)
        (setq company-completion-finished-hook 'restore-company-ends)
 
-       (set (make-local-variable 'company-frontends) '(company-pseudo-tooltip-frontend))
-       (set (make-local-variable 'company-backends) '(company-lsp company-dabbrev))
+       (setq company-frontends '(company-pseudo-tooltip-frontend))
+       (setq company-backends backends)
 
        (define-key company-active-map (kbd "<up>") 'company-select-previous-or-abort)
        (define-key company-active-map (kbd "<down>") 'company-select-next-or-abort)
@@ -195,15 +200,6 @@
     (lsp-ccls-enable)
     (flycheck-mode)
     (ccls-use-default-rainbow-sem-highlight)
-    (set (make-local-variable 'company-frontends) '(company-preview-common-frontend ))
-    ;; (set (make-local-variable 'company-backends) '((company-dabbrev company-lsp)))
-    (set (make-local-variable 'company-backends) '((company-yasnippet company-dabbrev)))
-    (use-local-map (copy-keymap c++-mode-map))
-    (local-set-key (kbd "C-SPC") 'ccls-company-complete)
-
-    (define-key company-active-map (kbd "<up>") nil)
-    (define-key company-active-map (kbd "<down>") nil)
-
     (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)) ; disabling client-side cache and sorting because the ccls server does a better job.
 
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
@@ -331,6 +327,8 @@
 (global-set-key (kbd "M-<kp-5>") (lambda() (interactive) (ccls-navigate "D")))
 (global-set-key (kbd "M-<kp-4>") (lambda() (interactive) (ccls-navigate "L")))
 (global-set-key (kbd "M-<kp-6>") (lambda() (interactive) (ccls-navigate "R")))
+
+(global-set-key (kbd "C-SPC") (lambda () (interactive) (company-complete-with-backends '((company-gtags company-elisp company-lsp)))))
 
 ; --------------------------------- ibuffer ---------------------------------------
 
