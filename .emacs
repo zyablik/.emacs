@@ -17,7 +17,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-revert-use-notify t)
- '(imenu-auto-rescan t)
  '(company-frontends '(company-preview-common-frontend company-pseudo-tooltip-unless-just-one-frontend-with-delay))
  '(company-backends '((company-dabbrev company-yasnippet)))
  '(custom-enabled-themes '(tsdh-light))
@@ -737,6 +736,8 @@
 
 ; Put column number into modeline
 (column-number-mode 1)
+
+(setq imenu-auto-rescan t)
 
 ; default value is 1 sec which is very annoying, cause it makes typing scratchy and jerky
 (setq semantic-idle-scheduler-idle-time 10)
