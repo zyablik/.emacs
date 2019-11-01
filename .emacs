@@ -50,6 +50,8 @@
     (modify-syntax-entry ?_ "w")
     (modify-syntax-entry ?- "w")
     (modify-syntax-entry ?+ "w")
+    (make-local-variable 'company-backends)
+    (make-local-variable 'company-frontends)
 )
 
 (add-hook 'prog-mode-hook
@@ -134,8 +136,8 @@
 ; No delay in showing suggestions.
 (setq company-idle-delay 0.0)
 
-; Show suggestions after entering one character.
-(setq company-minimum-prefix-length 1)
+; show suggestions after entering two characters
+(setq company-minimum-prefix-length 2)
 
 (setq company-selection-wrap-around t)
 
@@ -146,7 +148,7 @@
 
 (setq company-require-match 'never) ; non-completion character closes tooltip
 (setq company-begin-commands '(self-insert-command yank)) ; begin completion after yank
-(setq company-tooltip-idle-delay 1.5) ; company-pseudo-tooltip-unless-just-one-frontend-with-delay
+(setq company-tooltip-idle-delay 1.0) ; company-pseudo-tooltip-unless-just-one-frontend-with-delay
 (setq company-tooltip-limit 15)
 
 (defun company-complete-with-backends (backends)
