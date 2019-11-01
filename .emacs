@@ -598,6 +598,11 @@
 
 (global-set-key (kbd "S-<f7>") 'profiler-stop)
 
+(require 'smartrep)
+(smartrep-define-key global-map "C-x"
+  '(("n" . git-gutter:next-hunk)
+    ("p" . git-gutter:previous-hunk)))
+
 ; --------------------------------- ivy ---------------------------------------
 
 (ivy-mode 1)
@@ -629,8 +634,6 @@
 ; --------------------------------- git-gutter ---------------------------------
 
 (global-git-gutter-mode t)
-(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
-(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
 
 (set-face-foreground 'git-gutter:modified "purple")
 (set-face-foreground 'git-gutter:added "dark green")
@@ -638,7 +641,7 @@
 
 (add-to-list 'git-gutter:update-hooks 'focus-in-hook)
 
-(setq git-gutter:lighter " gg")
+(setq git-gutter:lighter "")
 
 ; --------------------------------- which-func ---------------------------------------
 (which-function-mode 1)
