@@ -25,7 +25,7 @@
  '(package-selected-packages
  ; smex for lru in counsel-M-x
  (quote
-  (qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar)))
+  (smartrep visible-mark qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar)))
  '(tool-bar-mode nil))
 
 (custom-set-faces
@@ -56,6 +56,7 @@
     (lambda()
         (all-modes-hook)
         (hs-minor-mode)
+        (auto-mark-mode t) ; enable it only for prog modes for performance reasons
 ;        (dtrt-indent-mode 1)
         (setq show-trailing-whitespace t)))
 
@@ -668,6 +669,60 @@
 (define-key easy-kill-base-map (kbd "f") (lambda()
     (interactive)
     (easy-kill-adjust-candidate 'which-function (which-function))))
+
+; --------------------------------- back-button --------------------------------
+(setq mark-ring-max 32)
+(setq global-mark-ring-max 32)
+
+(require 'auto-mark) ; https://www.emacswiki.org/emacs/AutoMark
+
+(setq auto-mark-command-class-alist
+        '((anything . anything)
+          (goto-line . jump)
+          (avy-goto-char-2 . jump)
+          (xref-find-definitions . jump)
+          (indent-for-tab-command . ignore)
+          (undo . ignore)))
+
+(setq auto-mark-command-classifiers
+      (list (lambda (command)
+              (if (and (eq command 'self-insert-command)
+                       (eq last-command-event ? ))
+                  'ignore))))
+
+;; (global-auto-mark-mode 1)
+
+; (require 'visible-mark)
+; (defface visible-mark-face1
+;  '((((type tty) (class mono))
+;      (:inverse-video t))
+;     (t (:background "gold4"))) "")
+; (defface visible-mark-face2
+;   '((((type tty) (class mono)))
+;     (t (:background "DarkOrange4"))) "")
+; (defface visible-mark-face3
+;  '((((type tty) (class mono)))
+;     (t (:background "red4"))) "")
+; (setq visible-mark-faces (quote (visible-mark-face1 visible-mark-face2 visible-mark-face3)))
+
+; highlight the last 3 marks
+; (setq visible-mark-max 3)
+; globally activate visible-mark-mode
+;(global-visible-mark-mode 1)
+
+(setq back-button-index-timeout 5)
+
+(back-button-mode 1)
+
+; https://github.com/kleiba/visual-mark-ring-mode/blob/master/visual-mark-ring-mode.el
+; show marks on F8, for debug auto-mark
+; (autoload 'visual-mark-ring-mode "visual-mark-ring-mode" "" t)
+; (autoload 'visual-mark-ring-activate "visual-mark-ring-mode" "" t)
+; (setq visual-mark-ring-overlays nil)
+; (global-set-key (kbd "<f8>") (lambda()
+;    (interactive)
+;    (visual-mark-ring-activate)))
+
 
 ; --------------------------------- misc ---------------------------------------
 
