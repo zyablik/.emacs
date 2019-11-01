@@ -25,18 +25,20 @@
  '(package-selected-packages
  ; smex for lru in counsel-M-x
  (quote
-  (qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar)))
- '(semantic-idle-scheduler-idle-time 10))
+  (qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar)))
+ '(tool-bar-mode nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 97 :width normal :foundry "PfEd" :family "Hack"))))
+ '(default ((t (:family "Hack" :foundry "SRC" :slant normal :weight normal :height 99 :width normal))))
  '(diff-added ((t (:background "white" :foreground "forest green"))))
  '(diff-removed ((t (:background "white" :foreground "orange red"))))
  '(diredp-compressed-file-suffix ((t (:foreground "#7b68ee"))))
  '(diredp-ignored-file-name ((t (:foreground "#aaaaaa"))))
+ '(line-number-current-line ((t (:background "dark gray" :foreground "gainsboro"))))
  '(lsp-ui-sideline-code-action ((t (:foreground "orange")))))
 
 ; --------------------------------- hooks ---------------------------------------
@@ -53,17 +55,12 @@
 (add-hook 'prog-mode-hook
     (lambda()
         (all-modes-hook)
-        (linum-mode)
-        (hlinum-activate)
         (hs-minor-mode)
 ;        (dtrt-indent-mode 1)
         (setq show-trailing-whitespace t)))
 
-(add-hook 'special-mode-hook 'hl-line-mode)
-
 (add-hook 'text-mode-hook
     (lambda()
-        (hl-line-mode)
         (all-modes-hook)
  ))
 
@@ -370,12 +367,6 @@
 (setq show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
-; highlight current line number
-(require 'hlinum)
-
-; highlight current line
-;(global-hl-line-mode 1)
-
 ; --------------------------------- speedbar ---------------------------------------
 
 (setq sr-speedbar-auto-refresh t)
@@ -635,8 +626,6 @@
 ; --------------------------------- git-gutter ---------------------------------
 
 (global-git-gutter-mode t)
-(git-gutter:linum-setup)
-
 (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
 
@@ -682,9 +671,9 @@
 
 ; --------------------------------- misc ---------------------------------------
 
-(delete-selection-mode)
+(global-display-line-numbers-mode t)
 
-(setq linum-format "%d ")
+(delete-selection-mode)
 
 ; Put column number into modeline
 (column-number-mode 1)
