@@ -7,8 +7,6 @@
 ; enable marmalade
 ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
-;(add-to-list 'load-path "~/.emacs.d")
-
 (add-to-list 'load-path (format "%s/dotemacs" (getenv "HOME")))
 
 ; --------------------------------- autogen ---------------------------------------
@@ -19,12 +17,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-revert-use-notify t)
- '(company-frontends (quote (company-preview-common-frontend company-pseudo-tooltip-unless-just-one-frontend-with-delay)))
- '(company-backends (quote ((company-dabbrev company-yasnippet))))
- '(custom-enabled-themes (quote (tsdh-light)))
  '(imenu-auto-rescan t)
+ '(company-frontends '(company-preview-common-frontend company-pseudo-tooltip-unless-just-one-frontend-with-delay))
+ '(company-backends '((company-dabbrev company-yasnippet)))
+ '(custom-enabled-themes '(tsdh-light))
  '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
+ ; smex for lru in counsel-M-x
  (quote
   (qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido hlinum ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar)))
  '(semantic-idle-scheduler-idle-time 10))
@@ -40,8 +39,6 @@
  '(diredp-ignored-file-name ((t (:foreground "#aaaaaa"))))
  '(lsp-ui-sideline-code-action ((t (:foreground "orange")))))
 
-; smex for lru in counsel-M-x
-
 ; --------------------------------- hooks ---------------------------------------
 
 ;; (setq debug-on-error t)
@@ -51,7 +48,6 @@
     (modify-syntax-entry ?_ "w")
     (modify-syntax-entry ?- "w")
     (modify-syntax-entry ?+ "w")
-;    (hl-highlight-mode) ; enable S-<f8>
 )
 
 (add-hook 'prog-mode-hook
@@ -722,8 +718,6 @@
 
 ; enable only for ccls
 (global-flycheck-mode -1)
-
-(back-button-mode 1)
 
 ; force vr-steroids to override orig vr
 (require 'visual-regexp-steroids)
