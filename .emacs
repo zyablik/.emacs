@@ -738,6 +738,9 @@
 ; Put column number into modeline
 (column-number-mode 1)
 
+; default value is 1 sec which is very annoying, cause it makes typing scratchy and jerky
+(setq semantic-idle-scheduler-idle-time 10)
+
 ; enable multicursors
 (require 'iedit)
 
