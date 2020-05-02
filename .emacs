@@ -549,17 +549,18 @@
 
 (global-set-key (kbd "C-f") 'swiper)
 (global-set-key (kbd "C-S-f") (lambda() (interactive) (swiper (thing-at-point 'symbol))))
-(global-set-key (kbd "C-M-f") 'swiper-multi)
+(global-set-key (kbd "s-f") 'swiper-all)
 (global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-x C-f") (lambda() (interactive) (let ((ivy-extra-directories '()))(counsel-find-file)))) ; hide . and ..
 (global-set-key (kbd "C-h v") 'counsel-describe-variable)
 (global-set-key (kbd "C-h f") 'counsel-describe-function)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "C-c C-r") 'ivy-resume) ; Recalls the state of the completion session just before its last exit. Useful after an accidental C-m (ivy-done). 
 
 (add-hook 'ivy-mode-hook
     (lambda ()
       (define-key ivy-minibuffer-map (kbd "S-<down>") (lambda() (interactive) (ivy-call) (ivy-next-line)))
       (define-key ivy-minibuffer-map (kbd "S-<up>") (lambda() (interactive) (ivy-call) (ivy-previous-line)))
+      (define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done)
       (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done)))
 
 (global-set-key (kbd "M-%") 'vr/query-replace)
