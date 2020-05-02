@@ -778,6 +778,7 @@
 
 (global-undo-tree-mode)
 (setq undo-tree-visualizer-diff t)
+(setq undo-tree-enable-undo-in-region t)
 
 (global-set-key (kbd "C-<tab>") 'buffer-flip)
 (setq buffer-flip-map
