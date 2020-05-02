@@ -23,8 +23,7 @@
  '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
  ; smex for lru in counsel-M-x
- (quote
-  (flycheck smartrep visible-mark qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar)))
+ '(cmake-font-lock flycheck smartrep visible-mark qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))
  '(tool-bar-mode nil))
 
 (custom-set-faces
