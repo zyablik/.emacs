@@ -523,12 +523,7 @@
         (define-key speedbar-mode-map [M-up] 'speedbar-restricted-prev)
         (define-key speedbar-mode-map [M-down] 'speedbar-restricted-next)))
 
-(global-set-key (kbd "C-d") 'duplicate-line)
-
-(add-hook 'c-mode-common-hook
-    (lambda ()
-        (local-set-key (kbd "C-d") #'duplicate-line)))
-
+(global-set-key (kbd "s-d") 'duplicate-line)
 
 (global-set-key (kbd "C-v") 'yank)
 
