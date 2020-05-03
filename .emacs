@@ -43,11 +43,9 @@
 
 ;; (setq debug-on-error t)
 
+(global-superword-mode t)
+
 (defun all-modes-hook()
-    ; consider _ and - as part of the word (while selection)
-    (modify-syntax-entry ?_ "w")
-    (modify-syntax-entry ?- "w")
-    (modify-syntax-entry ?+ "w")
     (make-local-variable 'company-backends)
     (make-local-variable 'company-frontends)
 )
