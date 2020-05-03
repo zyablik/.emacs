@@ -471,18 +471,7 @@
   (yank)
 )
 
-; skip Ibuffer while switching buffers
-(defun my-next-buffer ()
-  (interactive)
-  (next-buffer)
-  (when (string= "*Ibuffer*" (buffer-name))
-      (next-buffer)))
 
-(defun my-previous-buffer ()
-  (interactive)
-  (previous-buffer)
-  (when (string= "*Ibuffer*" (buffer-name))
-      (previous-buffer)))
 
 ; --------------------------------- bindings ---------------------------------------
 
@@ -531,8 +520,6 @@
     (lambda ()
         (local-set-key (kbd "C-d") #'duplicate-line)))
 
-;; (global-set-key (kbd "C-<tab>") 'previous-buffer)
-;; (global-set-key (kbd "C-S-<iso-lefttab>") 'next-buffer)
 
 (global-set-key (kbd "C-v") 'yank)
 
@@ -575,9 +562,6 @@
 (global-set-key (kbd "C-c C-<down>")   'buf-move-down)
 (global-set-key (kbd "C-c C-<left>")   'buf-move-left)
 (global-set-key (kbd "C-c C-<right>")  'buf-move-right)
-
-(global-set-key (kbd "C-S-x C-<left>") 'my-next-buffer)
-(global-set-key (kbd "C-S-x C-<right>") 'my-previous-buffer)
 
 (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
 
