@@ -583,10 +583,10 @@
 (global-set-key (kbd "<f7>") (lambda ()
     (interactive)
     (if (profiler-running-p)
-         (profiler-report)
+         (progn
+            (profiler-report)
+            (profiler-stop))
          (profiler-start 'cpu))))
-
-(global-set-key (kbd "S-<f7>") 'profiler-stop)
 
 (require 'smartrep)
 (smartrep-define-key global-map "C-x"
