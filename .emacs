@@ -469,7 +469,18 @@
   (yank)
 )
 
+(defun my-forward-symbol ()
+    (interactive "^") ; ^ is for handle-shift-selection()
+    (if (eq (char-after) ?\C-j)
+        (forward-char 1)
+        (re-search-forward "\\(\\sw\\|\\s_\\)+\\|.$" nil 'move 1)))
 
+(defun my-backward-symbol ()
+    (interactive "^") ; ^ is for handle-shift-selection()
+    (if (eq (char-before) ?\C-j)
+        (forward-char -1)
+        (if (re-search-backward "\\(\\sw\\|\\s_\\)+\\|^." nil 'move)
+	    (skip-syntax-backward "w_"))))
 
 ; --------------------------------- bindings ---------------------------------------
 
@@ -569,6 +580,9 @@
 
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C--") 'er/contract-region)
+
+(global-set-key (kbd "C-<right>") 'my-forward-symbol)
+(global-set-key (kbd "C-<left>")  'my-backward-symbol)
 
 (require 'profiler)
 (global-set-key (kbd "<f7>") (lambda ()
