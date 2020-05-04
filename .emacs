@@ -23,7 +23,7 @@
  '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
  ; smex for lru in counsel-M-x
- '(cmake-font-lock flycheck smartrep visible-mark qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags yasnippet-classic-snippets yasnippet company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref visual-regexp-steroids visual-regexp function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))
+ '(ivy-posframe cmake-font-lock flycheck smartrep visible-mark qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))
  '(tool-bar-mode nil))
 
 (custom-set-faces
@@ -526,8 +526,7 @@
 (global-set-key (kbd "s-d") 'duplicate-line)
 
 (global-set-key (kbd "C-v") 'yank)
-
-(global-set-key (kbd "M-y") 'popup-kill-ring)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
 
 ; multiple-cursors
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -620,6 +619,16 @@
 
 (setq xref-show-xrefs-function #'my-ivy-xref-show-xrefs)
 
+(require 'ivy-posframe)
+(setq ivy-posframe-height-alist '((counsel-yank-pop . 20)
+                                  (counsel-find-file . 30)
+                                  (t      . 20)))
+
+(setq ivy-posframe-display-functions-alist
+      '((counsel-find-file . ivy-posframe-display-at-window-center)
+        (counsel-yank-pop  . ivy-posframe-display-at-point)
+        (t                 . nil)))
+(ivy-posframe-mode 1)
 
 ; --------------------------------- git-gutter ---------------------------------
 
