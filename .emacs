@@ -593,6 +593,8 @@
   '(("n" . git-gutter:next-hunk)
     ("p" . git-gutter:previous-hunk)))
 
+
+(global-set-key (kbd "s-SPC") 'just-one-space) ; M-SPC occupied by krunner
 ; --------------------------------- ivy ---------------------------------------
 
 (ivy-mode 1)
