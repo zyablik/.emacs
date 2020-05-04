@@ -544,6 +544,7 @@
 (global-set-key (kbd "C-h v") 'counsel-describe-variable)
 (global-set-key (kbd "C-h f") 'counsel-describe-function)
 (global-set-key (kbd "C-c C-r") 'ivy-resume) ; Recalls the state of the completion session just before its last exit. Useful after an accidental C-m (ivy-done). 
+(global-set-key (kbd "C-c g") 'counsel-rg)
 
 (add-hook 'ivy-mode-hook
     (lambda ()
