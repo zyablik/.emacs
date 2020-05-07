@@ -679,43 +679,30 @@
 
 ; --------------------------------- back-button --------------------------------
 (setq mark-ring-max 32)
-(setq global-mark-ring-max 32)
+(setq global-mark-ring-max 64)
 
 (require 'auto-mark) ; https://www.emacswiki.org/emacs/AutoMark
 
+(setq auto-mark-only-last-mark-on-sameline t)
+
+(setq auto-mark-push-mark 'back-button-push-mark-local-and-global)
+
 (setq auto-mark-command-class-alist
-        '((anything . anything)
-          (goto-line . jump)
+        '((goto-line . jump)
           (avy-goto-char-2 . jump)
           (xref-find-definitions . jump)
           (indent-for-tab-command . ignore)
-          (undo . ignore)))
+          (undo-tree-undo . ignore)))
 
-(setq auto-mark-command-classifiers
-      (list (lambda (command)
-              (if (and (eq command 'self-insert-command)
-                       (eq last-command-event ? ))
-                  'ignore))))
+;; ignore whitespace via auto-mark-command-classifiers:
+;; (setq auto-mark-command-classifiers
+;;       (list (lambda (command)
+;;               (if (and (eq command 'self-insert-command)
+;;                        (eq last-command-event ? )
+;;                        )
+;;                   'ignore))))
 
-;; (global-auto-mark-mode 1)
-
-; (require 'visible-mark)
-; (defface visible-mark-face1
-;  '((((type tty) (class mono))
-;      (:inverse-video t))
-;     (t (:background "gold4"))) "")
-; (defface visible-mark-face2
-;   '((((type tty) (class mono)))
-;     (t (:background "DarkOrange4"))) "")
-; (defface visible-mark-face3
-;  '((((type tty) (class mono)))
-;     (t (:background "red4"))) "")
-; (setq visible-mark-faces (quote (visible-mark-face1 visible-mark-face2 visible-mark-face3)))
-
-; highlight the last 3 marks
-; (setq visible-mark-max 3)
-; globally activate visible-mark-mode
-;(global-visible-mark-mode 1)
+(global-auto-mark-mode 1)
 
 (setq back-button-index-timeout 5)
 
@@ -723,12 +710,12 @@
 
 ; https://github.com/kleiba/visual-mark-ring-mode/blob/master/visual-mark-ring-mode.el
 ; show marks on F8, for debug auto-mark
-; (autoload 'visual-mark-ring-mode "visual-mark-ring-mode" "" t)
-; (autoload 'visual-mark-ring-activate "visual-mark-ring-mode" "" t)
-; (setq visual-mark-ring-overlays nil)
-; (global-set-key (kbd "<f8>") (lambda()
-;    (interactive)
-;    (visual-mark-ring-activate)))
+(autoload 'visual-mark-ring-mode "visual-mark-ring-mode" "" t)
+(autoload 'visual-mark-ring-activate "visual-mark-ring-mode" "" t)
+(setq visual-mark-ring-overlays nil)
+(global-set-key (kbd "<f8>") (lambda()
+   (interactive)
+   (visual-mark-ring-activate)))
 
 
 ; --------------------------------- misc ---------------------------------------

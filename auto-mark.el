@@ -83,6 +83,16 @@ and returns CLASS."
   :group 'auto-mark
   :type 'boolean)
 
+(defcustom auto-mark-only-last-mark-on-sameline nil
+  "Ignore move on same line."
+  :group 'auto-mark
+  :type 'boolean)
+
+(defcustom auto-mark-push-mark 'push-mark
+  "Ignore move on same line."
+  :group 'auto-mark
+  :type 'function)
+
 (defvar auto-mark-previous-buffer-size nil
   "Previous buffer size for detecting changes the buffer.")
 
@@ -104,8 +114,9 @@ and returns CLASS."
 (defun auto-mark-pre-command-handle ()
   (setq auto-mark-previous-buffer-size (buffer-size)
         auto-mark-previous-point (point))
-  (auto-mark-handle-command-class
-   (auto-mark-classify-command this-command)))
+  ;; (auto-mark-handle-command-class ; do we really need this call?
+   ;; (auto-mark-classify-command this-command))
+   )
 
 (defun auto-mark-post-command-handle ()
   (auto-mark-handle-command-class
@@ -113,7 +124,7 @@ and returns CLASS."
        'ignore
      (if (/= auto-mark-previous-buffer-size (buffer-size))
          'edit
-       
+
        (if (or (and auto-mark-ignore-move-on-sameline
                     (/= (line-number-at-pos auto-mark-previous-point)
                         (line-number-at-pos (point))))
@@ -121,11 +132,21 @@ and returns CLASS."
            'move)))))
 
 (defun auto-mark-handle-command-class (class)
+  ;; (message "auto-mark-handle-command-class class = %s auto-mark-command-class = %s" class auto-mark-command-class)
   (if (and class
            (not (or (eq class 'ignore)
                     (eq class auto-mark-command-class))))
       (progn
-        (push-mark auto-mark-previous-point t nil)
+        ;; (message "automark push %s" auto-mark-previous-point)
+        (if (or (not auto-mark-only-last-mark-on-sameline)
+                (and (mark) (and (/=
+                                (line-number-at-pos (mark))
+                                (line-number-at-pos auto-mark-previous-point)))))
+            (funcall auto-mark-push-mark auto-mark-previous-point t nil)
+
+            (progn
+                (set-mark auto-mark-previous-point)
+                (deactivate-mark)))
         (setq auto-mark-command-class class))))
 
 (defun auto-mark-mode-maybe ()
