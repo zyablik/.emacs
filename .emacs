@@ -18,12 +18,15 @@
  ;; If there is more than one, they won't work right.
  '(auto-revert-use-notify t)
  '(company-frontends '(company-preview-common-frontend company-pseudo-tooltip-unless-just-one-frontend-with-delay))
+ '(anzu-mode-lighter "")
+ '(anzu-replace-threshold 100)
+ '(anzu-replace-to-string-separator " => ")
  '(company-backends '((company-dabbrev company-yasnippet)))
  '(custom-enabled-themes '(tsdh-light))
  '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
  ; smex for lru in counsel-M-x
- '(ivy-posframe cmake-font-lock flycheck smartrep visible-mark qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))
+ '(anzu ivy-posframe cmake-font-lock flycheck smartrep visible-mark qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))
  '(tool-bar-mode nil))
 
 (custom-set-faces
@@ -553,7 +556,7 @@
       (define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done)
       (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done)))
 
-(global-set-key (kbd "M-%") 'vr/query-replace)
+(global-set-key (kbd "M-%") 'anzu-query-replace-regexp)
 
 (global-set-key (kbd "C-:") 'avy-goto-char-2)
 
@@ -762,8 +765,7 @@
 ; enable only for ccls
 (global-flycheck-mode -1)
 
-; force vr-steroids to override orig vr
-(require 'visual-regexp-steroids)
+(global-anzu-mode +1)
 
 (global-undo-tree-mode)
 (setq undo-tree-visualizer-diff t)
