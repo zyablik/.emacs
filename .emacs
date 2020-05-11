@@ -26,7 +26,7 @@
  '(lsp-imenu-show-container-name nil)
  '(package-selected-packages
  ; smex for lru in counsel-M-x
- '(anzu ivy-posframe cmake-font-lock flycheck smartrep visible-mark qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))
+ '(symbol-overlay anzu ivy-posframe cmake-font-lock flycheck smartrep visible-mark qt-pro-mode expand-region json-mode qml-mode dockerfile-mode yaml-mode easy-kill buffer-flip git-gutter-fringe git-gutter clang-format undo-tree evil-nerd-commenter back-button buffer-move ido-vertical-mode imenu-list ggtags company-lsp company rainbow-mode avy ccls lsp-ui ivy-xref function-args ivy-hydra counsel bury-successful-compilation multiple-cursors popup-kill-ring hl-todo clean-aindent-mode bm flx-ido ibuffer-projectile iedit smex projectile projectile-speedbar sr-speedbar))
  '(tool-bar-mode nil))
 
 (custom-set-faces
@@ -512,7 +512,8 @@
 
 (global-set-key (kbd "<f9>") 'toggle-camelcase-underscores)
 
-(global-set-key (kbd "S-<f8>") 'hl-highlight-thingatpt-local)
+(global-set-key (kbd "<f8>") 'symbol-overlay-put)
+(global-set-key (kbd "s-<f8>") 'symbol-overlay-remove-all)
 
 (global-set-key (kbd "<f11>") #'imenu-list-smart-toggle)
 
@@ -716,7 +717,7 @@
 (autoload 'visual-mark-ring-mode "visual-mark-ring-mode" "" t)
 (autoload 'visual-mark-ring-activate "visual-mark-ring-mode" "" t)
 (setq visual-mark-ring-overlays nil)
-(global-set-key (kbd "<f8>") (lambda()
+(global-set-key (kbd "S-<f8>") (lambda()
    (interactive)
    (visual-mark-ring-activate)))
 
